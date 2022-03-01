@@ -1,0 +1,15 @@
+thead {
+  white-space: nowrap;
+}
+
+thead tr th:nth-child(1) {
+  width: 20% !important;
+}
+
+thead tr th:nth-child(2) {
+  max-width: 20% !important;
+}
+
+tbody tr {
+  cursor: pointer;
+}

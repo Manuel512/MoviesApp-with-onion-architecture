@@ -1,0 +1,94 @@
+<div class="row mt-5 mb-5 justify-content-center">
+  <div class="col-lg-5">
+    <div class="card w-100">
+      <div class="card-header">
+        Add new movie
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" [(ngModel)]="movie.title">
+        </div>
+        <div class="form-group">
+          <label for="overview">Overview</label>
+          <textarea class="form-control" id="overview" [(ngModel)]="movie.overview"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="releasedate">Release Date</label>
+          <input type="date" class="form-control" id="releasedate" [(ngModel)]="movie.releaseDate">
+        </div>
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <select class="form-control" id="rating" [(ngModel)]="movie.rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="language">Language</label>
+          <select class="form-control" id="language" [(ngModel)]="movie.language">
+            <option value="English">English</option>
+            <option value="Spanish">Spanish</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="genres">Genres</label>
+          <div class="input-group">
+            <select class="custom-select" id="genres" [(ngModel)]="genreSelected">
+              <option selected disabled>Choose...</option>
+              <option [ngValue]="genre" *ngFor="let genre of genres">{{genre.name}}</option>
+            </select>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" (click)="addGenre()">Add</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <ul class="mt-2">
+                <li *ngFor="let genre of movie.genres">{{ genre.name }}
+                  <button type="button" class="close" (click)="removeGenre(genre.id)">
+                    <span>&times;</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-primary float-right mr-2" (click)="saveMovie()" [disabled]="saving">Save</button>
+        <button type="button" class="btn btn-secondary float-right mr-2" (click)="goBack()" [disabled]="saving">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="saveModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="saveModalLabel">Are you sure you want to save this new movie?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancelSave()" [disabled]="saving">No</button>
+        <button type="button" class="btn btn-danger" (click)="confirmSave()" [disabled]="saving">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="goBackModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="goBackModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="goBackModalLabel">{{ movie.title }} added</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="goBack()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>

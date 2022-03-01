@@ -1,0 +1,33 @@
+<h1 class="mt-5">Movies <button type="button" class="btn btn-primary float-right" (click)="addMovie()">Add</button></h1>
+
+<p *ngIf="!movies"><em>Loading...</em></p>
+
+<table class='table table-hover' aria-labelledby="tableLabel" *ngIf="movies">
+  <caption>
+    <strong class="float-right">Click a Movie to view its details!</strong>
+  </caption>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Overview</th>
+      <th>Release Date</th>
+      <th>Rating</th>
+      <th>Language</th>
+      <th class="text-center">Genres</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let movie of movies" (click)="viewDetail(movie.id)">
+      <td>{{ movie.title }}</td>
+      <td>{{ movie.overview }}</td>
+      <td>{{ movie.releaseDate | date: 'MM/dd/yyyy'}}</td>
+      <td>{{ movie.rating }}</td>
+      <td>{{ movie.language }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let genre of movie.genres">{{ genre.name }}</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>

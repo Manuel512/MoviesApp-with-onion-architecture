@@ -1,0 +1,65 @@
+<div class="row mt-5 mb-5 justify-content-center">
+  <div class="col-lg-5">
+    <div class="card w-100">
+      <div class="card-header">
+        {{ movie.title }} Details
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="overview">Overview</label>
+          <textarea class="form-control" id="overview" readonly [ngModel]="movie.overview"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="releasedate">Release Date</label>
+          <input type="text" class="form-control" id="releasedate" [ngModel]="movie.releaseDate | date: 'MM/dd/yyyy'" readonly>
+        </div>
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <input type="text" class="form-control" id="rating" [ngModel]="movie.rating" readonly>
+        </div>
+        <div class="form-group">
+          <label for="language">Language</label>
+          <input type="text" class="form-control" id="language" [ngModel]="movie.language" readonly>
+        </div>
+        <div class="form-group">
+          <label for="rating">Genres</label><br />
+          <ul>
+            <li *ngFor="let genre of movie.genres">{{ genre.name }}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-danger float-right" (click)="deleteMovie()" [disabled]="deleting">Delete</button>
+        <button type="button" class="btn btn-primary float-right mr-2" (click)="editMovie()" [disabled]="deleting">Edit</button>
+        <button type="button" class="btn btn-secondary float-right mr-2" (click)="goBack()" [disabled]="deleting">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete {{ movie.title }}?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancelDelete()" [disabled]="deleting">No</button>
+        <button type="button" class="btn btn-danger" (click)="confirmDelete()" [disabled]="deleting">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="goBackModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="goBackModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="goBackModalLabel">{{ movie.title }} deleted</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="goBack()">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
